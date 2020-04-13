@@ -1,11 +1,17 @@
 
 package com.andrearagao.entities;
 
+import com.andrearagao.main.Game;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 
 public class Entity {
+    
+    public static BufferedImage LIFEPACK_EN = Game.spritesheet.getSprite(176, 0, 16, 16);
+    public static BufferedImage WEAPON_EN = Game.spritesheet.getSprite(192, 0, 16, 16);
+    public static BufferedImage BULLET_EN = Game.spritesheet.getSprite(208, 0, 16, 16);
+    public static BufferedImage ENEMY_EN = Game.spritesheet.getSprite(224, 0, 16, 16);
     
     protected double x;
     protected double y;

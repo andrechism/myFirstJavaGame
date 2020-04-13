@@ -1,9 +1,10 @@
-
+/*           robo cacau'             */
 package com.andrearagao.main;
 
 import com.andrearagao.entities.Entity;
 import com.andrearagao.entities.Player;
 import com.andrearagao.graficos.Spritesheet;
+import com.andrearagao.world.World;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,10 +32,12 @@ public class Game extends Canvas implements Runnable, KeyListener{
     
     private BufferedImage image;
 
-    public List<Entity> entities;
+    public static List<Entity> entities;
     public static Spritesheet spritesheet;
     
-    private Player player;
+    public static World world;
+    
+    public static Player player;
     
     public Game(){
 
@@ -44,17 +47,23 @@ public class Game extends Canvas implements Runnable, KeyListener{
         initFrame();
         
         // Inicializando Objetos
+        
+        
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         entities = new ArrayList<Entity>();
         spritesheet = new Spritesheet("/spritesheet.png");
+        
+        player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
+        entities.add(player);
+        
+        world = new World("/map.png");
         
         //Player player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16)); //    essas duas linhas
         //entities.add(player);                                                           //    se juntam na mesma linha abaixo:
         
         //entities.add(new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16)));  //mas como preciso controlar com keyboard a entidade eu usei a forma anterior
         
-        player = new Player(0, 0, 16, 16, spritesheet.getSprite(32, 0, 16, 16));
-        entities.add(player);
+        
     }
     
     public void initFrame(){
@@ -102,12 +111,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
         }
         //Graphics g = bs.getDrawGraphics();
         Graphics g = image.getGraphics();
-        g.setColor(new Color(0,200,0));
+        g.setColor(new Color(0,0,0));
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
         /*Renderização do game*/
         
         //Graphics2D g2 = (Graphics2D) g; //isso não é um instanciamento, isso é um cast (seria ativar uma função no 'g')
+        
+        world.render(g);
         
         for(int i = 0; i < entities.size(); i++){
             Entity e = entities.get(i);
